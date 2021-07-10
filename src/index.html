@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Multi-User Video Call</title>
+        <title>TeamUP</title>
 
         <meta content="width=device-width, initial-scale=1" name="viewport" />
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <link rel='stylesheet' href='assets/css/app.css' type="text/css">
+        <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAe1BMVEUdHRv+/v4AAAAaGhizs7PGxsYlJSPp6ecbGxgNDQp3d3V9fX2qqqq8vLwaGhocHBzd3d3Ozs4QEAwXFxUUFBRXV1fCwsJsbGr19fWIiIhcXFzj4+MHBwBlZWMODg8+Pj6enp5OTk6SkpI0NDRCQkEtLSpKSkrw8O21tbXYALImAAADE0lEQVR4nO3cbVeiQBiAYXwmS8JARdeXFEtr7f//ws12z5Y8g8Aux5mx+/o6SN6Ht4TRKAIAAAAAAAAAAAAAAAAAAAAAAAAAAOiGdGrqOkfLh/0OjTcT10HKZNTrUhK7DlIobFtYuA5SKKSQQvcopJBC9yikkEL3rr8wiky1/PZONdzImRdkrmNszKBaReGZV7iuactYC12/qy5RGD4Kw0dh+CgMH4XhozB8FIaPwn8yzTt5b93ovjCLZLXyKLH7wlQSr56Ed11oJHvo9e6vtdDkIstFL7DCaVEytd1PzLJpIVJsn36vLaTCfJaUrGyToor0ORn2/64qpEK5KY/+sOzDMj+9rx5U4bA8+qAL38+ep66tMN8urrxQnsrLXFvhenzlhVmqHt9ReEkUUhhR6ByFFEYUOkchhRGFzlFIYUShcxQ2KEyvrVDdEbZtQ4++Sdu+sK8K9SrmAW3D9a48OlJ76V6tYePRF77rCuOlGk7N6SqKlVrkOaDCyUYNz0sHmd6RF9uAnnLnL+VnEuUD0RRqDSOPDsPawkGsx19O9kHR+7E6GblU+wxY+mp8JOnnc+DJq9rIvd368iGVagtjdTI9XhKL46ySI3l91OMrjy6HDZ7j/9QFvdGzSJ7nE5H5QY/eFaby711e/VwMsX4xbLybbV82T5YN6NussfpCfc2vY53L4Ex9oYn0qeSskXj1/bYGM4b0Ff28+yK0QnPbKvDRr03YaNaXnolwjleXiqhZ4aCwnjLtLNNt3Go0c286axy4yHy6Fh41m5to+d+zwsyzfbTx7Mum59PEt320caFZvzUJ3PkX2HgGrYnVJEVtKb4dhFGLOcJG6v57O8w93IJtZkEbWelFvxjvffpU+KnNPO84q770HxLx6N7MV61msht5tZ9TD7tpnF70fTdnK3yrPp5yyZflz4uL/r34eIr5w9w+jMt25369xKxlnwzHd4sPj/3hfCA+3VrTjP6F0rpPP2nxvlC23+732XFpfzfff0mNyfOP33Lx67MSAAAAAAAAAAAAAAAAAAAAAAAAAADfzS/VtkF7F8PSZgAAAABJRU5ErkJggg==">
 
         <script src='/socket.io/socket.io.js'></script>
         <script type="module" src='assets/js/rtc.js'></script>
@@ -20,26 +21,56 @@
     </head>
 
     <body>
-        <div class="custom-modal" id='recording-options-modal'>
-            <div class="custom-modal-content">
-                <div class="row text-center">
-                    <div class="col-md-6 mb-2">
-                        <span class="record-option" id='record-video'>Record video</span>
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <span class="record-option" id='record-screen'>Record screen</span>
-                    </div>
+        <div class="container-fluid" id='room-create' hidden>
+            <div class="row">
+                <div class="col-12 h2 mt-5 text-center">Create Room</div>
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col-12 text-center">
+                    <span class="form-text small text-danger" id='err-msg'></span>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-12 text-center">
-                        <button class="btn btn-outline-danger" id='closeModal'>Close</button>
-                    </div>
+                <div class="col-12 col-md-4 offset-md-4 mb-3">
+                    <label for="room-name">Room Name</label>
+                    <input type="text" id='room-name' class="form-control rounded-0" placeholder="Room Name">
+                </div>
+
+                <div class="col-12 col-md-4 offset-md-4 mb-3">
+                    <label for="your-name">Your Name</label>
+                    <input type="text" id='your-name' class="form-control rounded-0" placeholder="Your Name">
+                </div>
+
+                <div class="col-12 col-md-4 offset-md-4 mb-3">
+                    <button id='create-room' class="btn btn-block rounded-0 btn-info">Create Room</button>
+                </div>
+
+                <div class="col-12 col-md-4 offset-md-4 mb-3" id='room-created'></div>
+            </div>
+        </div>
+
+        
+        <div class="container-fluid" id='username-set' hidden>
+            <div class="row">
+                <div class="col-12 h4 mt-5 text-center">Your Name</div>
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col-12 text-center">
+                    <span class="form-text small text-danger" id='err-msg-username'></span>
+                </div>
+
+                <div class="col-12 col-md-4 offset-md-4 mb-3">
+                    <label for="username">Your Name</label>
+                    <input type="text" id='username' class="form-control rounded-0" placeholder="Your Name">
+                </div>
+
+                <div class="col-12 col-md-4 offset-md-4 mb-3">
+                    <button id='enter-room' class="btn btn-block rounded-0 btn-info">Enter Room</button>
                 </div>
             </div>
         </div>
-        
-        
+
         <nav class="navbar fixed-top bg-info rounded-0 d-print-none">
             <div class="text-white">Video Call</div>
 
@@ -70,59 +101,26 @@
             </div>
         </nav>
 
-        <div class="container-fluid" id='room-create' hidden>
-            <div class="row">
-                <div class="col-12 h2 mt-5 text-center">Create Room</div>
-            </div>
-            
-            <div class="row mt-2">
-                <div class="col-12 text-center">
-                    <span class="form-text small text-danger" id='err-msg'></span>
+        <div class="custom-modal" id='recording-options-modal'>
+            <div class="custom-modal-content">
+                <div class="row text-center">
+                    <div class="col-md-6 mb-2">
+                        <span class="record-option" id='record-video'>Record video</span>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <span class="record-option" id='record-screen'>Record screen</span>
+                    </div>
                 </div>
 
-                <div class="col-12 col-md-4 offset-md-4 mb-3">
-                    <label for="room-name">Room Name</label>
-                    <input type="text" id='room-name' class="form-control rounded-0" placeholder="Room Name">
-                </div>
-
-                <div class="col-12 col-md-4 offset-md-4 mb-3">
-                    <label for="your-name">Your Name</label>
-                    <input type="text" id='your-name' class="form-control rounded-0" placeholder="Your Name">
-                </div>
-
-                <div class="col-12 col-md-4 offset-md-4 mb-3">
-                    <button id='create-room' class="btn btn-block rounded-0 btn-info">Create Room</button>
-                </div>
-
-                <div class="col-12 col-md-4 offset-md-4 mb-3" id='room-created'></div>
-            </div>
-        </div>
-
-
-
-        <div class="container-fluid" id='username-set' hidden>
-            <div class="row">
-                <div class="col-12 h4 mt-5 text-center">Your Name</div>
-            </div>
-            
-            <div class="row mt-2">
-                <div class="col-12 text-center">
-                    <span class="form-text small text-danger" id='err-msg-username'></span>
-                </div>
-
-                <div class="col-12 col-md-4 offset-md-4 mb-3">
-                    <label for="username">Your Name</label>
-                    <input type="text" id='username' class="form-control rounded-0" placeholder="Your Name">
-                </div>
-
-                <div class="col-12 col-md-4 offset-md-4 mb-3">
-                    <button id='enter-room' class="btn btn-block rounded-0 btn-info">Enter Room</button>
+                <div class="row mt-3">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-outline-danger" id='closeModal'>Close</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-
-        
+       
         <div class="container-fluid room-comm" hidden>
             <div class="row">
                 <video class="local-video mirror-mode" id='local' volume='0' autoplay muted></video>
