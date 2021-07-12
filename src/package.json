@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zainanizar/TeamUP.git"
+    "url": "git+https://github.com/zainanizar/Team-UP.git"
   },
   "keywords": [
     "LiveStream",
@@ -27,7 +27,7 @@
   "author": "Zaina Nizar",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zainanizar/TeamUP/issues"
+    "url": "https://github.com/zainanizar/Team-UP/issues"
   },
-  "homepage": "https://github.com/zainanizar/TeamUP#readme"
+  "homepage": "https://github.com/zainanizar/Team-UP#readme"
 }
