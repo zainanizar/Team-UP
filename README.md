@@ -3,7 +3,7 @@
 A Video-calling website where you can connect with anyone around the world.
 Developed with ReactJS, Node.js, SocketIO.
 
-<img src ="https://github.com/zainanizar/Team-UP/blob/main/images/Screenshot%20(294).png>
+<img src="https://github.com/zainanizar/Team-UP/blob/main/images/Screenshot%20(294).png" width=150 height=300 >
 
 # Functionalities
 * Video calling
