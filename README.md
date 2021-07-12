@@ -1,6 +1,7 @@
 # Team-UP
 
 A Video-calling website where you can connect with anyone around the world.
+Developed with ReactJS, Node.js, SocketIO.
 
 # Functionalities
 * Video calling
@@ -12,6 +13,6 @@ A Video-calling website where you can connect with anyone around the world.
 
 # How to run the code 
 1. After clonning the repository type
-<a href="#" class="button big">npm ci</a>
-2. <a href="#" class="button big">node server.js</a>
+`npm ci`
+2. `node server.js`
 3. open localhost:3000 in your browser
