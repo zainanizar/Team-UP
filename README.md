@@ -3,6 +3,9 @@
 A Video-calling website where you can connect with anyone around the world.
 Developed with ReactJS, Node.js, SocketIO.
 
+![Screenshot](Screenshot(294).png)
+![Screenshot](Screenshot(294).png)
+
 # Functionalities
 * Video calling
 * Chat
