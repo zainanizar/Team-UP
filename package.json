@@ -17,6 +17,10 @@
   "bugs": {
     "url": "https://github.com/zainanizar/Team-UP/issues"
   },
+  "engines": {
+    "node": "14.17.1"
+  },
+
   "homepage": "https://github.com/zainanizar/Team-UP#readme",
   "dependencies": {
     "express": "^4.17.1",
